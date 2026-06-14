@@ -14,7 +14,7 @@ const styles = `
     font-size:11px; letter-spacing:0.32em; text-transform:uppercase; color:rgba(255,236,216,0.9); animation:hero-fade 1.3s ease 0.5s both; }
   .hero-begin button { font:inherit; letter-spacing:inherit; text-transform:inherit; color:inherit; cursor:pointer;
     display:inline-block; padding:13px 30px; }
-  .hero-begin button:hover { background:rgba(255,240,225,0.11); border-color:rgba(255,200,150,0.4); transform:translateY(-1px); }
+  .hero-begin button:hover { background:rgba(255,240,225,0.11) !important; border-color:rgba(255,200,150,0.4) !important; transform:translateY(-1px); }
   @keyframes hero-fade { from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
   .hero-nowplaying { position:absolute; bottom:30vh; left:0; right:0; text-align:center; z-index:6; font-size:11px;
     letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,180,110,0.7); }
@@ -30,7 +30,7 @@ export default function HeroSection({ onBegin, gateOpen, nowPlayingTitle = null,
       <h1 className="hero-name">Josh Ermert</h1>
 
       <p className="hero-nowplaying" style={{ visibility: gateOpen && nowPlayingTitle ? 'visible' : 'hidden' }}>
-        Now Playing — {nowPlayingTitle}
+        {gateOpen && nowPlayingTitle ? `Now Playing — ${nowPlayingTitle}` : ''}
       </p>
 
       <div className="hero-begin">
