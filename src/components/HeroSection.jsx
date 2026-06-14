@@ -16,8 +16,8 @@ const styles = `
     display:inline-block; padding:13px 30px; }
   .hero-begin button:hover { background:rgba(255,240,225,0.11) !important; border-color:rgba(255,200,150,0.4) !important; transform:translateY(-1px); }
   @keyframes hero-fade { from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
-  .hero-nowplaying { position:absolute; bottom:30vh; left:0; right:0; text-align:center; z-index:6; font-size:11px;
-    letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,180,110,0.7); }
+  .hero-nowplaying { position:absolute; bottom:calc(18vh + 16px); transform:translateY(50%); left:0; right:0; text-align:center; z-index:6; font-size:11px;
+    letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,190,120,0.92); }
 `
 
 export default function HeroSection({ onBegin, gateOpen, nowPlayingTitle = null, getAmplitude = () => 0, hue = 28, isPlaying = false }) {

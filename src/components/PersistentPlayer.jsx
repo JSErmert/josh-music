@@ -26,16 +26,17 @@ const styles = `
   .player-track-info {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
-    flex: 1;
+    min-width: 0;
+    max-width: 260px;
+    flex: 0 0 auto;
   }
 
   .player-progress-wrap {
     flex: 1;
-    max-width: 320px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
   }
 
   @media (prefers-reduced-motion: reduce) {

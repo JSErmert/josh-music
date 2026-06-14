@@ -14,7 +14,7 @@ describe('useAudio', () => {
     const { result } = renderHook(() => useAudio())
     act(() => result.current.begin())
     expect(result.current.gateOpen).toBe(true)
-    expect(result.current.currentTrackId).toBe('me-and-you')
+    expect(result.current.currentTrackId).toBe('son')
     expect(result.current.isPlaying).toBe(true)
   })
   it('selectTrack sets current track and plays', () => {

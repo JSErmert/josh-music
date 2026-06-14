@@ -1,6 +1,16 @@
 // Josh Ermert's catalogue — two songs. Audio lives in public/audio/ (served at /audio/...).
 export const tracks = [
   {
+    id: 'son',
+    title: 'Son',
+    kind: 'Cover',
+    credit: 'Palace',          // cover of "Son" by Palace
+    duration: '—',
+    src: '/audio/son.mp3',
+    lyrics: null,              // Palace's lyrics are copyrighted — link out, do not embed
+    lyricsUrl: 'https://genius.com/Palace-son-lyrics',
+  },
+  {
     id: 'me-and-you',
     title: 'Me and You',
     kind: 'Original',
@@ -35,16 +45,6 @@ me and you
 me and you`,
     lyricsUrl: null,
   },
-  {
-    id: 'son',
-    title: 'Son',
-    kind: 'Cover',
-    credit: 'Palace',          // cover of "Son" by Palace
-    duration: '—',
-    src: '/audio/son.mp3',
-    lyrics: null,              // Palace's lyrics are copyrighted — link out, do not embed
-    lyricsUrl: 'https://genius.com/Palace-son-lyrics',
-  },
 ]
-export const SIGNATURE_TRACK_ID = 'me-and-you'
+export const SIGNATURE_TRACK_ID = 'son'
 export const getTrack = (id) => tracks.find((t) => t.id === id)
