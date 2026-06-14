@@ -1,6 +1,6 @@
 // App — root composition for Josh Ermert's music site (living-glow design).
 // Owns global audio + UI state via useAudio().
-// Renders: BackgroundField, HeroSection, main (Pillars + sections), PersistentPlayer,
+// Renders: BackgroundField, HeroSection, main (sections), PersistentPlayer,
 //          AlbumOverlay, and the shared <audio> element.
 
 import { useAudio } from './state/useAudio'
@@ -10,7 +10,6 @@ import BackgroundField from './components/BackgroundField'
 import { useAudioAnalyser } from './hooks/useAudioAnalyser'
 import { hueForIndex } from './design/tokens'
 import HeroSection from './components/HeroSection'
-import Pillars from './components/Pillars'
 import AboutSection from './components/AboutSection'
 import CollectionSection from './components/CollectionSection'
 import PressingsSection from './components/PressingsSection'
@@ -50,9 +49,7 @@ export default function App() {
 
       <HeroSection onBegin={begin} gateOpen={gateOpen} nowPlayingTitle={currentTrack?.title ?? null} getAmplitude={getAmplitude} hue={hue} />
 
-      {/* Post-hero sections wrapper — Pillars live here, not in hero */}
       <main style={{ position: 'relative' }}>
-        <Pillars />
         <AboutSection />
         <CollectionSection onPlay={selectTrack} currentTrackId={currentTrackId} isPlaying={isPlaying} onTogglePlay={togglePlay} />
         <PressingsSection albums={albums} onOpen={openAlbum} />

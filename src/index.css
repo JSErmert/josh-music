@@ -8,8 +8,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: #0f0805;
-  color: #e8ddc8;
+  background: #050302;
+  color: #f3e7d6;
   font-family: system-ui, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.8;
@@ -23,30 +23,5 @@ body {
   width: 100%;
 }
 
-/* ─── Aged paper / grain noise overlay (ported from B3 mockup) ─── */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.022;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent, transparent 2px,
-      rgba(255,210,140,0.6) 2px, rgba(255,210,140,0.6) 3px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent, transparent 3px,
-      rgba(200,160,80,0.4) 3px, rgba(200,160,80,0.4) 4px
-    );
-}
-
-/* ─── Scrollbar ─── */
-::selection { background: rgba(200,137,58,0.20); color: #e8ddc8; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0f0805; }
-::-webkit-scrollbar-thumb { background: rgba(200,137,58,0.13); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(200,137,58,0.26); }
+/* ─── Selection ─── */
+::selection { background: rgba(200,137,58,0.20); color: #f3e7d6; }
