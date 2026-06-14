@@ -1,6 +1,6 @@
-// App — root composition for Josh Ermert's music site (B3 Archive Stage design).
+// App — root composition for Josh Ermert's music site (living-glow design).
 // Owns global audio + UI state via useAudio().
-// Renders: BackgroundLayer, HeroSection, main (Pillars + sections), PersistentPlayer,
+// Renders: BackgroundField, HeroSection, main (Pillars + sections), PersistentPlayer,
 //          AlbumOverlay, and the shared <audio> element.
 
 import { useAudio } from './state/useAudio'
