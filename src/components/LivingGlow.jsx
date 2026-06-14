@@ -17,11 +17,12 @@ const styles = `
   .lg-bar { width:3px; background:rgba(255,170,90,0.7); border-radius:2px; height:4px; }
 `
 
-export default function LivingGlow({ getAmplitude = () => 0, hue = 28 }) {
+export default function LivingGlow({ getAmplitude = () => 0, hue = 28, isPlaying = false }) {
   const pulseRef = useRef(null)
   const coreRef = useRef(null)
   const wrapRef = useRef(null)
   const barsRef = useRef(null)
+  const levelRef = useRef(0)
   const reduced = useReducedMotion()
 
   // build the meter bars once
@@ -36,7 +37,6 @@ export default function LivingGlow({ getAmplitude = () => 0, hue = 28 }) {
   useEffect(() => {
     const pulse = pulseRef.current, core = coreRef.current, wrap = wrapRef.current, bars = barsRef.current
     if (!pulse || !core) return
-    const simEnv = (t) => Math.max(0, 0.45 + 0.35 * Math.sin(t * 1.6) + 0.22 * Math.sin(t * 3.7 + 1) + 0.12 * Math.sin(t * 7.1))
     const paint = (env) => {
       pulse.style.transform = `scale(${0.82 + env * 0.5})`
       pulse.style.opacity = `${0.4 + env * 0.5}`
@@ -57,19 +57,23 @@ export default function LivingGlow({ getAmplitude = () => 0, hue = 28 }) {
     }
     const loop = () => {
       t += 0.016; cooldown -= 0.016
-      const env = Math.max(simEnv(t), getAmplitude()) // real audio overrides the breath
+      // Drive the motion from the real audio while playing; settle to still when not.
+      // A gentle floor keeps it visibly alive through quiet passages of a playing track.
+      const target = isPlaying ? Math.max(getAmplitude(), 0.22 + 0.16 * Math.abs(Math.sin(t * 1.7))) : 0
+      levelRef.current += (target - levelRef.current) * 0.12
+      const env = levelRef.current
       paint(env)
-      if (env > 0.72 && env > prev && cooldown <= 0) { spawnRing(); cooldown = 1.7 }
+      if (isPlaying && env > 0.5 && env > prev && cooldown <= 0) { spawnRing(); cooldown = 1.7 }
       prev = env
       for (let i = 0; i < barEls.length; i++) {
-        const v = Math.max(0.04, env * Math.abs(Math.sin(t * 2 + i * 0.5)))
-        barEls[i].style.height = `${4 + v * 26}px`; barEls[i].style.opacity = `${0.3 + v * 0.5}`
+        const v = Math.max(0, env * Math.abs(Math.sin(t * 2 + i * 0.5)))
+        barEls[i].style.height = `${4 + v * 26}px`; barEls[i].style.opacity = `${0.25 + v * 0.55}`
       }
       raf = requestAnimationFrame(loop)
     }
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
-  }, [reduced, hue, getAmplitude])
+  }, [reduced, hue, getAmplitude, isPlaying])
 
   return (
     <div aria-hidden="true">

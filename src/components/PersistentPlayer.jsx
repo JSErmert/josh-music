@@ -56,7 +56,7 @@ const styles = `
   }
 `
 
-export default function PersistentPlayer({ track, isPlaying, onTogglePlay, onPrev, onNext, hue = 28 }) {
+export default function PersistentPlayer({ track, isPlaying, onTogglePlay, onPrev, onNext, hue = 28, currentTime = 0, duration = 0, onSeek }) {
   if (!track) return null
 
   // Build meta line from new schema fields (no instrument / catalogId)
@@ -68,6 +68,14 @@ export default function PersistentPlayer({ track, isPlaying, onTogglePlay, onPre
   const accent = `hsla(${hue},70%,60%,1)`
   const accentFaint = `hsla(${hue},70%,60%,0.28)`
   const accentTrack = `hsla(${hue},60%,40%,0.14)`
+
+  const fmt = (s) => {
+    if (!s || !isFinite(s)) return '0:00'
+    const m = Math.floor(s / 60)
+    const sec = Math.floor(s % 60)
+    return `${m}:${String(sec).padStart(2, '0')}`
+  }
+  const pct = duration ? Math.min(100, (currentTime / duration) * 100) : 0
 
   return (
     <div className="player-bar">
@@ -149,31 +157,44 @@ export default function PersistentPlayer({ track, isPlaying, onTogglePlay, onPre
         </button>
       </div>
 
-      {/* Slim progress bar — decorative, desktop only */}
-      <div aria-hidden="true" className="player-progress-wrap">
+      {/* Progress bar + elapsed/total time — desktop */}
+      <div className="player-progress-wrap">
         <div style={{
-          height: '3px',
-          background: accentTrack,
-          borderRadius: '2px',
-          overflow: 'hidden',
+          display: 'flex', justifyContent: 'space-between',
+          fontSize: '10px', letterSpacing: '0.06em',
+          color: 'rgba(255,236,214,0.42)', fontVariantNumeric: 'tabular-nums',
         }}>
+          <span>{fmt(currentTime)}</span>
+          <span>{fmt(duration)}</span>
+        </div>
+        <div
+          role="slider"
+          aria-label="Seek"
+          aria-valuemin={0}
+          aria-valuemax={Math.floor(duration) || 0}
+          aria-valuenow={Math.floor(currentTime) || 0}
+          tabIndex={0}
+          onClick={(e) => {
+            if (!onSeek) return
+            const rect = e.currentTarget.getBoundingClientRect()
+            onSeek(Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width)))
+          }}
+          style={{
+            height: '6px',
+            background: accentTrack,
+            borderRadius: '3px',
+            overflow: 'hidden',
+            cursor: onSeek ? 'pointer' : 'default',
+          }}
+        >
           <div style={{
             height: '100%',
-            width: '0%',
+            width: `${pct}%`,
             background: `linear-gradient(to right, hsla(${hue},55%,42%,1), ${accent})`,
-            borderRadius: '2px',
+            borderRadius: '3px',
+            transition: 'width 0.15s linear',
           }} />
         </div>
-        {track.duration ? (
-          <div style={{
-            fontSize: '9px',
-            letterSpacing: '0.12em',
-            color: 'rgba(255,236,214,0.28)',
-            textAlign: 'right',
-          }}>
-            {track.duration}
-          </div>
-        ) : null}
       </div>
     </div>
   )

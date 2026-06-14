@@ -20,11 +20,11 @@ const styles = `
     letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,180,110,0.7); }
 `
 
-export default function HeroSection({ onBegin, gateOpen, nowPlayingTitle = null, getAmplitude = () => 0, hue = 28 }) {
+export default function HeroSection({ onBegin, gateOpen, nowPlayingTitle = null, getAmplitude = () => 0, hue = 28, isPlaying = false }) {
   return (
     <section className="hero">
       <style>{styles}</style>
-      <LivingGlow getAmplitude={getAmplitude} hue={hue} />
+      <LivingGlow getAmplitude={getAmplitude} hue={hue} isPlaying={isPlaying} />
 
       <div className="hero-eyebrow">Music Collection</div>
       <h1 className="hero-name">Josh Ermert</h1>
@@ -33,9 +33,11 @@ export default function HeroSection({ onBegin, gateOpen, nowPlayingTitle = null,
         {gateOpen && nowPlayingTitle ? `Now Playing — ${nowPlayingTitle}` : ''}
       </p>
 
-      <div className="hero-begin">
-        <Glass as="button" type="button" onClick={onBegin}>Begin Listening</Glass>
-      </div>
+      {!gateOpen && (
+        <div className="hero-begin">
+          <Glass as="button" type="button" onClick={onBegin}>Begin Listening</Glass>
+        </div>
+      )}
     </section>
   )
 }

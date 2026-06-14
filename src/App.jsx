@@ -3,6 +3,7 @@
 // Renders: BackgroundField, HeroSection, main (sections), PersistentPlayer,
 //          and the shared <audio> element.
 
+import { useEffect, useState } from 'react'
 import { useAudio } from './state/useAudio'
 import { tracks, getTrack as getTrackById } from './data/tracks'
 import BackgroundField from './components/BackgroundField'
@@ -35,12 +36,32 @@ export default function App() {
   const trackIndex = tracks.findIndex((t) => t.id === currentTrackId)
   const hue = hueForIndex(trackIndex < 0 ? 0 : trackIndex)
 
+  // Playback position from the real <audio> element, for the player's progress bar + time.
+  const [progress, setProgress] = useState({ current: 0, duration: 0 })
+  useEffect(() => {
+    const el = audioRef.current
+    if (!el) return undefined
+    const sync = () => setProgress({ current: el.currentTime || 0, duration: el.duration || 0 })
+    el.addEventListener('timeupdate', sync)
+    el.addEventListener('loadedmetadata', sync)
+    el.addEventListener('durationchange', sync)
+    return () => {
+      el.removeEventListener('timeupdate', sync)
+      el.removeEventListener('loadedmetadata', sync)
+      el.removeEventListener('durationchange', sync)
+    }
+  }, [audioRef])
+  const seek = (frac) => {
+    const el = audioRef.current
+    if (el && progress.duration) el.currentTime = frac * progress.duration
+  }
+
   return (
     <>
       <NavigationBar />
       <BackgroundField />
 
-      <HeroSection onBegin={begin} gateOpen={gateOpen} nowPlayingTitle={currentTrack?.title ?? null} getAmplitude={getAmplitude} hue={hue} />
+      <HeroSection onBegin={begin} gateOpen={gateOpen} nowPlayingTitle={currentTrack?.title ?? null} getAmplitude={getAmplitude} hue={hue} isPlaying={isPlaying} />
 
       <main style={{ position: 'relative' }}>
         <AboutSection />
@@ -55,6 +76,10 @@ export default function App() {
         onTogglePlay={togglePlay}
         onPrev={prev}
         onNext={next}
+        hue={hue}
+        currentTime={progress.current}
+        duration={progress.duration}
+        onSeek={seek}
       />
 
       {/* Shared audio element — src set by useAudio when a real file is available */}
