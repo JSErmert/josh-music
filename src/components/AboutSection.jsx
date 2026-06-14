@@ -114,7 +114,7 @@ export default function AboutSection() {
               position: 'relative',
               zIndex: 1,
             }}>
-              Classical &nbsp;·&nbsp; Jazz &nbsp;·&nbsp; Composition
+              Alternative
             </p>
 
             {/* Bio text */}
@@ -130,16 +130,20 @@ export default function AboutSection() {
                 zIndex: 1,
               }}
             >
-              {/* TODO — Josh: replace with your real bio. Placeholder copy below
-                  makes no factual claims about you (instrument, training, venues). */}
               <p>
-                TODO — Add a short artist bio here. A couple of sentences in your
-                own words: who you are, the kind of music you make, and what you
-                want listeners to know. Keep it honest — no invented credits.
+                By day I build systems, the governed, trustworthy kind where
+                accuracy is the whole point. This is where the same person works
+                without a blueprint: I play piano and record original songs from
+                scratch, and I produce full-length songs from freely available
+                audio that I sing on. When the tools did not do what I needed, I
+                built my own, a small audio-ML pipeline just to pull a vocal
+                cleanly out of a mix. The engineering and the music come from the
+                same place: a pull to take something raw and shape it into
+                something honest and worth hearing.
               </p>
               <p style={{ marginTop: '20px' }}>
-                TODO — Optional second paragraph (how to listen, what's here, a
-                closing line).
+                I would rather a song be true than perfect. Everything here I
+                produced and sang myself, put here so it can simply be heard.
               </p>
             </div>
           </div>

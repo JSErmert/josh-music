@@ -85,8 +85,8 @@ export default function NavigationBar() {
       {/* Right — nav links */}
       <ul className="nav-links">
         {[
-          { label: 'Collection', href: '#collection' },
           { label: 'About',      href: '#about' },
+          { label: 'Collection', href: '#collection' },
           { label: 'Contact',    href: '#contact' },
         ].map(({ label, href }) => (
           <li key={label}>
