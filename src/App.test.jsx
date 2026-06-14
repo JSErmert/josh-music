@@ -10,9 +10,9 @@ beforeEach(() => {
   window.matchMedia = vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })
 })
 
-it('begins listening then shows the player', async () => {
-  render(<App />)
+it('renders the background field and begins listening', async () => {
+  const { container } = render(<App />)
+  expect(container.querySelector('.bgfield')).toBeInTheDocument()
   await userEvent.click(screen.getByRole('button', { name: /begin listening/i }))
-  // player surfaced — text appears in both CollectionSection and PersistentPlayer
   expect(screen.getAllByText('TODO — Untitled Track 1').length).toBeGreaterThan(0)
 })

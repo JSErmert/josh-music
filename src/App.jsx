@@ -6,7 +6,10 @@
 import { useAudio } from './state/useAudio'
 import { albums } from './data/albums'
 import { getTrack as getTrackById } from './data/tracks'
-import BackgroundLayer from './components/BackgroundLayer'
+import BackgroundField from './components/BackgroundField'
+import { useAudioAnalyser } from './hooks/useAudioAnalyser'
+import { tracks } from './data/tracks'
+import { hueForIndex } from './design/tokens'
 import HeroSection from './components/HeroSection'
 import Pillars from './components/Pillars'
 import AboutSection from './components/AboutSection'
@@ -37,12 +40,16 @@ export default function App() {
   const currentTrack = getTrackById(currentTrackId)
   const openAlbumObj = albums.find((a) => a.id === openAlbumId) || null
 
+  const { getAmplitude } = useAudioAnalyser(audioRef, isPlaying)
+  const trackIndex = tracks.findIndex((t) => t.id === currentTrackId)
+  const hue = hueForIndex(trackIndex < 0 ? 0 : trackIndex)
+
   return (
     <>
       <NavigationBar />
-      <BackgroundLayer />
+      <BackgroundField />
 
-      <HeroSection onBegin={begin} gateOpen={gateOpen} nowPlayingTitle={currentTrack?.title ?? null} />
+      <HeroSection onBegin={begin} gateOpen={gateOpen} nowPlayingTitle={currentTrack?.title ?? null} getAmplitude={getAmplitude} hue={hue} />
 
       {/* Post-hero sections wrapper — Pillars live here, not in hero */}
       <main style={{ position: 'relative' }}>
