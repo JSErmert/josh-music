@@ -7,14 +7,13 @@ export function useAudio() {
   const [gateOpen, setGateOpen] = useState(false)
   const [currentTrackId, setCurrentTrackId] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [openAlbumId, setOpenAlbumId] = useState(null)
 
   const play = useCallback((id) => {
     setCurrentTrackId(id)
     setIsPlaying(true)
     const el = audioRef.current
     const src = getTrack(id)?.src
-    if (el && src) { el.src = src; el.play().catch(() => {}) } // stub src=null -> no-op
+    if (el && src) { el.src = src; el.play()?.catch(() => {}) } // stub src=null -> no-op
   }, [])
 
   const begin = useCallback(() => { setGateOpen(true); play(SIGNATURE_TRACK_ID) }, [play])
@@ -22,12 +21,10 @@ export function useAudio() {
   const togglePlay = useCallback(() => {
     setIsPlaying((p) => {
       const el = audioRef.current
-      if (el && getTrack(currentTrackId)?.src) { p ? el.pause() : el.play().catch(() => {}) }
+      if (el && getTrack(currentTrackId)?.src) { p ? el.pause() : el.play()?.catch(() => {}) }
       return !p
     })
   }, [currentTrackId])
-  const openAlbum = useCallback((id) => setOpenAlbumId(id), [])
-  const closeAlbum = useCallback(() => setOpenAlbumId(null), [])
 
   // FIX 4 — queue navigation; wraps around the tracks array.
   const next = useCallback(() => {
@@ -36,7 +33,7 @@ export function useAudio() {
       const nextId = tracks[(idx + 1) % tracks.length].id
       const el = audioRef.current
       const src = getTrack(nextId)?.src
-      if (el && src) { el.src = src; el.play().catch(() => {}) }
+      if (el && src) { el.src = src; el.play()?.catch(() => {}) }
       return nextId
     })
     setIsPlaying(true)
@@ -48,11 +45,11 @@ export function useAudio() {
       const prevId = tracks[(idx - 1 + tracks.length) % tracks.length].id
       const el = audioRef.current
       const src = getTrack(prevId)?.src
-      if (el && src) { el.src = src; el.play().catch(() => {}) }
+      if (el && src) { el.src = src; el.play()?.catch(() => {}) }
       return prevId
     })
     setIsPlaying(true)
   }, [])
 
-  return { audioRef, gateOpen, currentTrackId, isPlaying, openAlbumId, begin, selectTrack, togglePlay, openAlbum, closeAlbum, next, prev }
+  return { audioRef, gateOpen, currentTrackId, isPlaying, begin, selectTrack, togglePlay, next, prev }
 }

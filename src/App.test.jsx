@@ -14,5 +14,5 @@ it('renders the background field and begins listening', async () => {
   const { container } = render(<App />)
   expect(container.querySelector('.bgfield')).toBeInTheDocument()
   await userEvent.click(screen.getByRole('button', { name: /begin listening/i }))
-  expect(screen.getAllByText('TODO — Untitled Track 1').length).toBeGreaterThan(0)
+  expect(screen.getAllByText('Me and You').length).toBeGreaterThan(0)
 })

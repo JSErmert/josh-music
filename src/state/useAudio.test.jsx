@@ -14,27 +14,20 @@ describe('useAudio', () => {
     const { result } = renderHook(() => useAudio())
     act(() => result.current.begin())
     expect(result.current.gateOpen).toBe(true)
-    expect(result.current.currentTrackId).toBe('nocturne-eflat')
+    expect(result.current.currentTrackId).toBe('me-and-you')
     expect(result.current.isPlaying).toBe(true)
   })
   it('selectTrack sets current track and plays', () => {
     const { result } = renderHook(() => useAudio())
-    act(() => result.current.selectTrack('blue-reverie'))
-    expect(result.current.currentTrackId).toBe('blue-reverie')
+    act(() => result.current.selectTrack('son'))
+    expect(result.current.currentTrackId).toBe('son')
     expect(result.current.isPlaying).toBe(true)
   })
   it('togglePlay flips playing', () => {
     const { result } = renderHook(() => useAudio())
-    act(() => result.current.selectTrack('blue-reverie'))
+    act(() => result.current.selectTrack('son'))
     act(() => result.current.togglePlay())
     expect(result.current.isPlaying).toBe(false)
-  })
-  it('openAlbum / closeAlbum set openAlbumId', () => {
-    const { result } = renderHook(() => useAudio())
-    act(() => result.current.openAlbum('reveries'))
-    expect(result.current.openAlbumId).toBe('reveries')
-    act(() => result.current.closeAlbum())
-    expect(result.current.openAlbumId).toBe(null)
   })
 
   describe('next() / prev() — queue navigation', () => {

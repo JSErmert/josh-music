@@ -106,7 +106,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           fontWeight: 300,
           marginBottom: '6px',
         }}>
-          {track.catalogId} &nbsp;·&nbsp; {track.instrument}
+          {track.kind}
         </p>
         <h3
           className="track-tile-title"
@@ -128,7 +128,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           letterSpacing: '0.08em',
           marginTop: '4px',
         }}>
-          {track.duration} &nbsp;·&nbsp; {track.year}
+          {track.duration}
         </p>
       </div>
 

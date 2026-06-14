@@ -1,10 +1,9 @@
 // App — root composition for Josh Ermert's music site (living-glow design).
 // Owns global audio + UI state via useAudio().
 // Renders: BackgroundField, HeroSection, main (sections), PersistentPlayer,
-//          AlbumOverlay, and the shared <audio> element.
+//          and the shared <audio> element.
 
 import { useAudio } from './state/useAudio'
-import { albums } from './data/albums'
 import { tracks, getTrack as getTrackById } from './data/tracks'
 import BackgroundField from './components/BackgroundField'
 import { useAudioAnalyser } from './hooks/useAudioAnalyser'
@@ -12,8 +11,6 @@ import { hueForIndex } from './design/tokens'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
 import CollectionSection from './components/CollectionSection'
-import PressingsSection from './components/PressingsSection'
-import AlbumOverlay from './components/AlbumOverlay'
 import LiveSection from './components/LiveSection'
 import ContactSection from './components/ContactSection'
 import PersistentPlayer from './components/PersistentPlayer'
@@ -25,18 +22,14 @@ export default function App() {
     gateOpen,
     currentTrackId,
     isPlaying,
-    openAlbumId,
     begin,
     selectTrack,
     togglePlay,
-    openAlbum,
-    closeAlbum,
     next,
     prev,
   } = useAudio()
 
   const currentTrack = getTrackById(currentTrackId)
-  const openAlbumObj = albums.find((a) => a.id === openAlbumId) || null
 
   const { getAmplitude } = useAudioAnalyser(audioRef, isPlaying)
   const trackIndex = tracks.findIndex((t) => t.id === currentTrackId)
@@ -52,7 +45,6 @@ export default function App() {
       <main style={{ position: 'relative' }}>
         <AboutSection />
         <CollectionSection onPlay={selectTrack} currentTrackId={currentTrackId} isPlaying={isPlaying} onTogglePlay={togglePlay} />
-        <PressingsSection albums={albums} onOpen={openAlbum} />
         <LiveSection />
         <ContactSection />
       </main>
@@ -63,15 +55,6 @@ export default function App() {
         onTogglePlay={togglePlay}
         onPrev={prev}
         onNext={next}
-      />
-
-      <AlbumOverlay
-        album={openAlbumObj}
-        onClose={closeAlbum}
-        onSelectTrack={(id) => { selectTrack(id); closeAlbum() }}
-        currentTrackId={currentTrackId}
-        isPlaying={isPlaying}
-        onTogglePlay={togglePlay}
       />
 
       {/* Shared audio element — src set by useAudio when a real file is available */}

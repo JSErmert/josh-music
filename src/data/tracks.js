@@ -1,12 +1,50 @@
-// PLACEHOLDER track data — honest, obviously unfilled. Nothing here is a real
-// release. Josh: replace title/instrument/duration/year/catalogId with your real
-// songs, and drop audio files into public/audio/ then set `src` (currently null).
-// The `id` fields are internal slugs (never shown in the UI) — leave them as-is.
+// Josh Ermert's catalogue — two songs. Audio lives in public/audio/ (served at /audio/...).
 export const tracks = [
-  { id: 'nocturne-eflat', title: 'TODO — Untitled Track 1', instrument: 'TBD', duration: '—', year: '—', catalogId: 'TODO-001', src: null },
-  { id: 'blue-reverie',   title: 'TODO — Untitled Track 2', instrument: 'TBD', duration: '—', year: '—', catalogId: 'TODO-002', src: null },
-  { id: 'cafe-trois',     title: 'TODO — Untitled Track 3', instrument: 'TBD', duration: '—', year: '—', catalogId: 'TODO-003', src: null },
-  { id: 'still-water',    title: 'TODO — Untitled Track 4', instrument: 'TBD', duration: '—', year: '—', catalogId: 'TODO-004', src: null },
+  {
+    id: 'me-and-you',
+    title: 'Me and You',
+    kind: 'Original',
+    credit: null,
+    duration: '—',
+    src: '/audio/me-and-you.mp3',
+    lyrics: `me and you
+what am i to do?
+so much love for you
+baby, i'm not through until it's me and you
+what am i to say?
+you take my breath away
+i feel this everyday
+baby, come with me
+i love it most when we see us in our dreams
+baby, we're the dream
+babe, we're everything
+me and you
+me and you
+me and you
+me and you
+what am i to do?
+so much love for you
+baby, i'm not through until it's me and you
+what am i to say?
+you take my breath away
+i feel this everyday
+baby, come with me
+me and you
+me and you
+me and you
+me and you`,
+    lyricsUrl: null,
+  },
+  {
+    id: 'son',
+    title: 'Son',
+    kind: 'Cover',
+    credit: 'Palace',          // cover of "Son" by Palace
+    duration: '—',
+    src: '/audio/son.mp3',
+    lyrics: null,              // Palace's lyrics are copyrighted — link out, do not embed
+    lyricsUrl: 'https://genius.com/Palace-son-lyrics',
+  },
 ]
-export const SIGNATURE_TRACK_ID = 'nocturne-eflat'
+export const SIGNATURE_TRACK_ID = 'me-and-you'
 export const getTrack = (id) => tracks.find((t) => t.id === id)
