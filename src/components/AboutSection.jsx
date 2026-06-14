@@ -1,37 +1,16 @@
-// AboutSection — "The Artist" frosted panel + vinyl-record graphic + bio.
+// AboutSection — "The Artist" frosted panel + bio.
 // Uses FrostPanel + useScrollReveal.
-// Visual CSS ported from docs/superpowers/specs/variants/B3-archive-stage/mockup.html
-// (#about, .about-panel, .about-disc, .about-bio, .liner-label, .section-heading).
-// Mobile: reduced padding, vinyl disc hidden, bio text left-aligned.
 
 import FrostPanel from './FrostPanel'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
-// Vinyl disc rings background (ported from .about-disc in mockup)
-const discBg = `radial-gradient(circle at 50% 50%,
-  rgba(10,5,2,0.9) 0%,
-  rgba(10,5,2,0.9) 16%,
-  rgba(255,190,80,0.06) 17%,
-  rgba(10,5,2,0.9) 19%,
-  rgba(255,190,80,0.05) 24%,
-  rgba(10,5,2,0.9) 26%,
-  rgba(255,190,80,0.04) 31%,
-  rgba(10,5,2,0.9) 34%,
-  rgba(255,190,80,0.035) 38%,
-  rgba(10,5,2,0.9) 41%,
-  rgba(255,190,80,0.03) 45%,
-  rgba(10,5,2,0.9) 48%
-)`
-
 const aboutStyles = `
   .about-section { padding: 80px 64px 80px; }
   .about-panel-inner { padding: 52px 64px; }
-  .about-disc { display: block; }
   .about-bio-text { text-align: center; }
   @media (max-width: 768px) {
     .about-section { padding: 56px 16px 56px; }
     .about-panel-inner { padding: 28px 20px; }
-    .about-disc { display: none; }
     .about-bio-text { text-align: left; }
   }
   @media (min-width: 769px) and (max-width: 1024px) {
@@ -71,7 +50,7 @@ export default function AboutSection() {
           textAlign: 'center',
           marginBottom: '8px',
         }}>
-          Liner Notes
+          About
         </p>
         <h2 style={{
           fontFamily: "Georgia, 'Times New Roman', serif",
@@ -106,7 +85,6 @@ export default function AboutSection() {
             margin: '0 auto',
             position: 'relative',
             overflow: 'hidden',
-            boxShadow: 'inset 0 1px 0 rgba(255,220,160,0.06), 0 16px 52px rgba(0,0,0,0.60)',
           }}
         >
           <div className="about-panel-inner">
@@ -124,35 +102,7 @@ export default function AboutSection() {
               }}
             />
 
-            {/* Decorative vinyl disc — right side, partially clipped (desktop only) */}
-            <div
-              aria-hidden="true"
-              className="about-disc"
-              style={{
-                position: 'absolute',
-                right: '-70px', top: '50%',
-                transform: 'translateY(-50%)',
-                width: '200px', height: '200px',
-                borderRadius: '50%',
-                background: discBg,
-                border: '1px solid rgba(200,137,58,0.10)',
-                opacity: 0.50,
-                pointerEvents: 'none',
-                zIndex: 0,
-              }}
-            >
-              {/* Label center */}
-              <div style={{
-                position: 'absolute',
-                top: '50%', left: '50%',
-                transform: 'translate(-50%,-50%)',
-                width: '42px', height: '42px',
-                borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(139,58,26,0.70) 0%, rgba(200,137,58,0.35) 55%, transparent 100%)',
-              }} />
-            </div>
-
-            {/* Liner label */}
+            {/* Genre label */}
             <p style={{
               fontSize: '9px',
               letterSpacing: '0.28em',
