@@ -1,18 +1,19 @@
-// TrackTile — glass card for a single track.
-// Props: track (object), onPlay (fn), hue (number, default 28).
-// Clicking anywhere on the tile calls onPlay(track.id), or toggles
-// play/pause when this tile is already the current track.
+// TrackTile — glass card for a single track, using the same frosted-glass
+// texture as the "Begin Listening" button.
+// Props: track, onPlay, currentTrackId, isPlaying, onTogglePlay, onOpenLyrics.
+// Clicking the tile plays the track (or toggles play/pause if it's current).
 
 const tileHoverStyles = `
   @media (hover: hover) {
     .track-tile:hover {
-      transform: translateY(-5px);
+      transform: translateY(-4px);
       box-shadow:
-        0 0 0 1px rgba(255,236,214,0.10),
-        0 20px 56px rgba(0,0,0,0.62) !important;
+        0 16px 40px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.18) !important;
     }
     .track-tile:hover .track-tile-inner {
-      background: rgba(255,240,225,0.09) !important;
+      background: rgba(255,240,225,0.10) !important;
+      border-color: rgba(255,200,150,0.4) !important;
     }
     .track-tile:hover .track-tile-title {
       color: #e8c080 !important;
@@ -24,12 +25,12 @@ const tileHoverStyles = `
   .track-tile:active {
     transform: translateY(-2px);
   }
-  .track-tile-inner { transition: background 0.35s ease; }
+  .track-tile-inner { transition: background 0.35s ease, border-color 0.3s ease; }
   .track-tile-title { transition: color 0.30s ease; }
-  .track-tile-play  { transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; }
+  .track-tile-play  { transition: border-color 0.3s ease, background 0.3s ease; }
 `
 
-export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, onTogglePlay, onOpenLyrics, hue = 28 }) {
+export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, onTogglePlay, onOpenLyrics }) {
   const isCurrentAndPlaying = track.id === currentTrackId && isPlaying
   const handleClick = () => {
     if (track.id === currentTrackId) {
@@ -45,19 +46,17 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
       style={{
         position: 'relative',
         aspectRatio: '1 / 1',
-        borderRadius: '14px',
+        borderRadius: '18px',
         overflow: 'hidden',
         cursor: 'pointer',
-        boxShadow: [
-          `0 0 0 1px hsla(${hue},70%,62%,0.10)`,
-          '0 16px 44px rgba(0,0,0,0.52)',
-        ].join(', '),
+        // same texture as the Begin Listening glass button
+        boxShadow: '0 10px 30px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.14)',
         transition: 'box-shadow 0.35s ease, transform 0.35s ease',
       }}
     >
       <style>{tileHoverStyles}</style>
 
-      {/* Frosted glass surface */}
+      {/* Frosted glass surface — Begin Listening recipe */}
       <div
         className="track-tile-inner"
         style={{
@@ -66,25 +65,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           background: 'rgba(255,240,225,0.06)',
           backdropFilter: 'blur(6px) saturate(1.15)',
           WebkitBackdropFilter: 'blur(6px) saturate(1.15)',
-          border: `1px solid hsla(${hue},70%,62%,0.22)`,
-          boxShadow: [
-            `inset 0 1px 0 rgba(255,255,255,0.14)`,
-            `inset 0 0 40px hsla(${hue},60%,55%,0.04)`,
-          ].join(', '),
-        }}
-      />
-
-      {/* Ambient hue glow — top-left sheen */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '-20px', left: '-20px',
-          width: '140px', height: '140px',
-          borderRadius: '50%',
-          background: `radial-gradient(circle, hsla(${hue},70%,58%,0.10) 0%, transparent 70%)`,
-          pointerEvents: 'none',
-          zIndex: 0,
+          border: '1px solid rgba(255,236,214,0.18)',
         }}
       />
 
@@ -102,7 +83,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           fontSize: '9px',
           letterSpacing: '0.22em',
           textTransform: 'uppercase',
-          color: `hsla(${hue},60%,62%,0.55)`,
+          color: 'rgba(255,210,160,0.6)',
           fontWeight: 300,
           marginBottom: '6px',
         }}>
@@ -113,7 +94,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           style={{
             fontFamily: "Georgia, 'Times New Roman', serif",
             fontStyle: 'italic',
-            fontSize: '1.0rem',
+            fontSize: '1.05rem',
             fontWeight: 400,
             color: '#f0e8dc',
             letterSpacing: '0.02em',
@@ -142,9 +123,8 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           zIndex: 4,
           width: '34px', height: '34px',
           borderRadius: '50%',
-          border: `1px solid hsla(${hue},70%,62%,0.35)`,
-          background: 'rgba(255,235,210,0.03)',
-          boxShadow: `0 0 8px hsla(${hue},70%,55%,0.15)`,
+          border: '1px solid rgba(255,236,214,0.3)',
+          background: 'rgba(255,235,210,0.04)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -171,7 +151,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
             background: 'none', border: 'none', padding: 0, cursor: 'pointer',
             fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '10px',
             letterSpacing: '0.16em', textTransform: 'uppercase',
-            color: `hsla(${hue},60%,70%,0.7)`,
+            color: 'rgba(255,236,214,0.6)',
           }}
         >
           Lyrics

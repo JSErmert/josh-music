@@ -5,25 +5,26 @@
 import { useState } from 'react'
 import { tracks } from '../data/tracks'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { hueForIndex } from '../design/tokens'
 import TrackTile from './TrackTile'
 import LyricsOverlay from './LyricsOverlay'
 
 const collectionStyles = `
   .collection-section { padding: 96px 64px 100px; }
   .collection-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
     width: 100%;
   }
+  .collection-grid .track-tile { width: 300px; max-width: 82vw; }
   @media (max-width: 768px) {
     .collection-section { padding: 64px 24px 72px; }
-    .collection-grid { grid-template-columns: 1fr; gap: 30px; }
+    .collection-grid { gap: 24px; }
+    .collection-grid .track-tile { width: 100%; max-width: 360px; }
   }
   @media (min-width: 769px) and (max-width: 1024px) {
     .collection-section { padding: 72px 32px 80px; }
-    .collection-grid { grid-template-columns: repeat(2, 1fr); gap: 36px; }
   }
 `
 
@@ -57,7 +58,7 @@ export default function CollectionSection({ onPlay, currentTrackId, isPlaying, o
           textAlign: 'center',
           marginBottom: '14px',
         }}>
-          The Collection
+          Featured Collection
         </h2>
         <div style={{
           width: '60px', height: '1px',
@@ -78,7 +79,7 @@ export default function CollectionSection({ onPlay, currentTrackId, isPlaying, o
         }}
       >
         <div className="collection-grid">
-          {tracks.map((track, index) => (
+          {tracks.map((track) => (
             <TrackTile
               key={track.id}
               track={track}
@@ -87,7 +88,6 @@ export default function CollectionSection({ onPlay, currentTrackId, isPlaying, o
               isPlaying={isPlaying}
               onTogglePlay={onTogglePlay}
               onOpenLyrics={setLyricsTrack}
-              hue={hueForIndex(index)}
             />
           ))}
         </div>
