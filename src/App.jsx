@@ -5,10 +5,9 @@
 
 import { useAudio } from './state/useAudio'
 import { albums } from './data/albums'
-import { getTrack as getTrackById } from './data/tracks'
+import { tracks, getTrack as getTrackById } from './data/tracks'
 import BackgroundField from './components/BackgroundField'
 import { useAudioAnalyser } from './hooks/useAudioAnalyser'
-import { tracks } from './data/tracks'
 import { hueForIndex } from './design/tokens'
 import HeroSection from './components/HeroSection'
 import Pillars from './components/Pillars'

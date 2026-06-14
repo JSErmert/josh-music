@@ -20,4 +20,8 @@ describe('HeroSection', () => {
     render(<HeroSection onBegin={() => {}} gateOpen={true} nowPlayingTitle="TODO — Untitled Track 1" getAmplitude={() => 0} />)
     expect(screen.getByText(/now playing.*untitled track 1/i)).toBeInTheDocument()
   })
+  it('does not show Now Playing text before the gate opens', () => {
+    render(<HeroSection onBegin={() => {}} gateOpen={false} nowPlayingTitle="TODO — Untitled Track 1" getAmplitude={() => 0} />)
+    expect(screen.queryByText(/now playing/i)).not.toBeInTheDocument()
+  })
 })

@@ -31,6 +31,10 @@ export function useAudioAnalyser(audioRef, isPlaying) {
     }
   }, [audioRef, isPlaying])
 
+  // Release the AudioContext only on unmount (not when isPlaying toggles, so the
+  // analyser is reused across pause/resume).
+  useEffect(() => () => { ctxRef.current?.close().catch(() => {}) }, [])
+
   const getAmplitude = useCallback(() => {
     const analyser = analyserRef.current
     const data = dataRef.current
