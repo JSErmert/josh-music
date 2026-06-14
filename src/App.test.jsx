@@ -14,5 +14,5 @@ it('begins listening then shows the player', async () => {
   render(<App />)
   await userEvent.click(screen.getByRole('button', { name: /begin listening/i }))
   // player surfaced — text appears in both CollectionSection and PersistentPlayer
-  expect(screen.getAllByText('Nocturne in E-flat').length).toBeGreaterThan(0)
+  expect(screen.getAllByText('TODO — Untitled Track 1').length).toBeGreaterThan(0)
 })

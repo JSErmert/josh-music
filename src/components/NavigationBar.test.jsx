@@ -3,9 +3,9 @@ import { describe, it, expect } from 'vitest'
 import NavigationBar from './NavigationBar'
 
 describe('NavigationBar', () => {
-  it('renders the JACQUES wordmark', () => {
+  it('renders the artist-name wordmark', () => {
     render(<NavigationBar />)
-    expect(screen.getByText(/jacques/i)).toBeInTheDocument()
+    expect(screen.getByText(/josh ermert/i)).toBeInTheDocument()
   })
 
   it('renders all four nav links with correct hrefs', () => {

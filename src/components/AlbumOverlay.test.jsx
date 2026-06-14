@@ -13,7 +13,7 @@ describe('AlbumOverlay', () => {
     const onClose = vi.fn(), onSelectTrack = vi.fn()
     render(<AlbumOverlay album={albums[0]} onClose={onClose} onSelectTrack={onSelectTrack} />)
     expect(screen.getByRole('dialog')).toBeInTheDocument()
-    await userEvent.click(screen.getByText('Nocturne in E-flat'))
+    await userEvent.click(screen.getByText('TODO — Untitled Track 1'))
     expect(onSelectTrack).toHaveBeenCalledWith('nocturne-eflat')
     await userEvent.click(screen.getByRole('button', { name: /close/i }))
     expect(onClose).toHaveBeenCalled()

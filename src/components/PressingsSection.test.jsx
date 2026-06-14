@@ -14,13 +14,13 @@ beforeEach(() => {
 describe('PressingsSection', () => {
   it('lists album titles', () => {
     render(<PressingsSection albums={albums} onOpen={() => {}} />)
-    expect(screen.getByText('Reveries')).toBeInTheDocument()
-    expect(screen.getByText('After Hours')).toBeInTheDocument()
+    expect(screen.getByText('TODO — Collection One')).toBeInTheDocument()
+    expect(screen.getByText('TODO — Collection Two')).toBeInTheDocument()
   })
   it('clicking an album tile calls onOpen with album id', async () => {
     const onOpen = vi.fn()
     render(<PressingsSection albums={albums} onOpen={onOpen} />)
-    await userEvent.click(screen.getByText('Reveries'))
+    await userEvent.click(screen.getByText('TODO — Collection One'))
     expect(onOpen).toHaveBeenCalledWith('reveries')
   })
 })

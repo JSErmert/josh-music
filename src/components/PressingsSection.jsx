@@ -125,7 +125,7 @@ export default function PressingsSection({ albums, onOpen }) {
             fontWeight: 400,
             marginBottom: '6px',
           }}>
-            An Evening with Jacques
+            TODO — Program / Event Title
           </p>
           <p style={{
             fontFamily: "Georgia, 'Times New Roman', serif",

@@ -1,4 +1,4 @@
-// HeroSection — pillar-free hero with centered "JACQUES", warm spotlight,
+// HeroSection — pillar-free hero with centered artist name, warm spotlight,
 // discipline line, and "Begin listening" vinyl-icon CTA.
 // Visual CSS ported from docs/superpowers/specs/variants/B3-archive-stage/mockup.html.
 // NO pillars here — pillars live in the post-hero sections wrapper only.
@@ -162,7 +162,7 @@ export default function HeroSection({ onBegin, gateOpen, nowPlayingTitle }) {
 
       {/* Artist name */}
       <h1 className="hero-name">
-        Jacques
+        Josh Ermert
       </h1>
 
       {/* Stage apron hairline rule */}

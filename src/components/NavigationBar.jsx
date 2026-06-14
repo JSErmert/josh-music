@@ -1,5 +1,5 @@
 // NavigationBar — fixed top bar ported from B3 Archive Stage mockup.
-// Left: "JACQUES" wordmark with "ARCHIVE" eyebrow.
+// Left: artist-name wordmark with "ARCHIVE" eyebrow.
 // Right: nav links anchoring to #archive / #about / #live / #contact.
 // Mobile (<= 768px): condensed padding, smaller link gap, eyebrow hidden.
 // At the very top the bar floats transparent; once scrolled it fades into a
@@ -90,7 +90,7 @@ export default function NavigationBar() {
             color: 'rgba(240,232,220,0.45)',
           }}
         >
-          Jacques
+          Josh Ermert
         </span>
         <span className="nav-eyebrow">
           Archive

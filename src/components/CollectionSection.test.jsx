@@ -13,7 +13,7 @@ beforeEach(() => {
 it('lists tracks and plays on click', async () => {
   const onPlay = vi.fn()
   render(<CollectionSection onPlay={onPlay} />)
-  expect(screen.getByText('Nocturne in E-flat')).toBeInTheDocument()
-  await userEvent.click(screen.getByText('Blue Reverie'))
+  expect(screen.getByText('TODO — Untitled Track 1')).toBeInTheDocument()
+  await userEvent.click(screen.getByText('TODO — Untitled Track 2'))
   expect(onPlay).toHaveBeenCalledWith('blue-reverie')
 })

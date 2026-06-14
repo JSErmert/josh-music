@@ -180,16 +180,16 @@ export default function AboutSection() {
                 zIndex: 1,
               }}
             >
+              {/* TODO — Josh: replace with your real bio. Placeholder copy below
+                  makes no factual claims about you (instrument, training, venues). */}
               <p>
-                Jacques is a pianist and composer working at the intersection of classical tradition and jazz
-                improvisation. Trained in formal conservatory practice, his music is shaped equally by the
-                silence between notes and the warmth of late-night sessions — a sound at home on stages from
-                intimate San Diego clubs to the storied backrooms of Carlsbad Village.
+                TODO — Add a short artist bio here. A couple of sentences in your
+                own words: who you are, the kind of music you make, and what you
+                want listeners to know. Keep it honest — no invented credits.
               </p>
               <p style={{ marginTop: '20px' }}>
-                His recordings are offered here as they were made: unguarded, unhurried.
-                The unreleased sessions are available to stream because some music is better heard than preserved.
-                Pull a sleeve. Drop the needle.
+                TODO — Optional second paragraph (how to listen, what's here, a
+                closing line).
               </p>
             </div>
           </div>

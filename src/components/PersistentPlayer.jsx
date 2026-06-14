@@ -274,7 +274,7 @@ export default function PersistentPlayer({ track, isPlaying, onTogglePlay, onPre
           color: '#8a7a68',
           marginTop: '2px',
         }}>
-          {track.instrument} &nbsp;·&nbsp; Jacques
+          {track.instrument} &nbsp;·&nbsp; Josh Ermert
         </span>
         <span style={{
           fontSize: '9px',
