@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Living glow + faint ripples — the direction</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; overflow:hidden; background:#080503; color:#f3e7d6; font-family:Georgia,'Times New Roman',serif; }
+  .panel { position:relative; height:100vh; width:100vw; overflow:hidden; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(120% 120% at 50% 50%, #0d0805 0%, #080503 60%, #050302 100%); }
+
+  /* nebula — gentle warm fog, same amber family as the flicker, drifting slowly */
+  .nebula { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .cloud { position:absolute; border-radius:50%; filter:blur(72px); mix-blend-mode:screen; opacity:0.05; will-change:transform; }
+  .cloud.c1 { width:70vmax; height:55vmax; left:-12vmax; top:-8vmax;
+    background:radial-gradient(circle, rgba(225,70,45,0.55), transparent 65%); animation:drift1 66s ease-in-out infinite alternate; }
+  .cloud.c2 { width:60vmax; height:60vmax; right:-14vmax; top:6vmax;
+    background:radial-gradient(circle, rgba(205,50,38,0.5), transparent 64%); animation:drift2 82s ease-in-out infinite alternate; }
+  .cloud.c3 { width:56vmax; height:46vmax; left:16vmax; bottom:-14vmax;
+    background:radial-gradient(circle, rgba(235,95,60,0.48), transparent 66%); animation:drift3 94s ease-in-out infinite alternate; }
+  @keyframes drift1 { from{ transform:translate(0,0) scale(1); } to{ transform:translate(8vmax,4vmax) scale(1.12); } }
+  @keyframes drift2 { from{ transform:translate(0,0) scale(1.05); } to{ transform:translate(-7vmax,6vmax) scale(0.95); } }
+  @keyframes drift3 { from{ transform:translate(0,0) scale(1); } to{ transform:translate(5vmax,-5vmax) scale(1.1); } }
+
+  /* constellation — identical motion/parallax to portfolio HeroCanvas, warm + flickering */
+  .constellation { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+  /* faint ripples — the echo */
+  .ringwrap { position:absolute; inset:0; z-index:1; }
+  .ring { position:absolute; left:50%; bottom:calc(18vh + 16px); width:13.44px; height:13.44px; margin:-6.72px; border-radius:50%;
+    border:1px solid rgba(255,150,70,0.0645); transform:scale(0); opacity:0.147; animation:ringExpand 5.4s ease-out forwards; }
+  @keyframes ringExpand { 0%{ transform:scale(0.2); opacity:0.147; } 100%{ transform:scale(42); opacity:0; } }
+
+  /* living glow — the body */
+  .pulse { position:absolute; bottom:calc(18vh + 16px - 12.43vmin); left:calc(50% - 12.43vmin); width:24.86vmin; height:24.86vmin; border-radius:50%; z-index:2; filter:blur(5px);
+    background:radial-gradient(circle, rgba(255,150,70,0.5) 0%, rgba(220,90,40,0.16) 42%, transparent 68%); }
+  .core { position:absolute; bottom:calc(18vh + 16px - 2.352vmin); left:calc(50% - 2.352vmin); width:4.703vmin; height:4.703vmin; border-radius:50%; z-index:2; filter:blur(2.5px);
+    background:radial-gradient(circle, rgba(255,200,140,0.55), transparent 70%); }
+
+  .grain { position:absolute; inset:0; pointer-events:none; opacity:0.16; mix-blend-mode:overlay; z-index:4;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .vignette { position:absolute; inset:0; pointer-events:none; z-index:3;
+    background:radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,0.55) 100%); }
+
+  .eyebrow { position:absolute; top:8vh; left:0; right:0; text-align:center; font-size:10px; letter-spacing:0.34em; text-transform:uppercase; color:rgba(243,231,214,0.45); z-index:6; }
+  .bigname { font-size:clamp(42px,9.5vw,108px); letter-spacing:0.05em; z-index:6; text-align:center; color:#ffe6c8; text-shadow:0 0 50px rgba(255,140,70,0.25); }
+  .begin { position:absolute; bottom:18vh; left:0; right:0; text-align:center; z-index:6;
+    font-size:11px; letter-spacing:0.32em; text-transform:uppercase; color:rgba(255,236,216,0.9);
+    animation:fadeBegin 1.3s ease 0.5s both; }
+  /* glass — matches portfolio header + card: translucent fill + backdrop-blur + hairline border + top sheen + soft shadow */
+  .begin span { display:inline-block; padding:13px 30px; border-radius:40px;
+    border:1px solid rgba(255,236,214,0.18);
+    background:rgba(255,240,225,0.06);
+    backdrop-filter:blur(6px) saturate(1.15); -webkit-backdrop-filter:blur(6px) saturate(1.15);
+    box-shadow:0 10px 30px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.14);
+    transition:background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; cursor:pointer; }
+  .begin span:hover { background:rgba(255,240,225,0.11); border-color:rgba(255,200,150,0.4); transform:translateY(-1px); }
+  @keyframes fadeBegin { from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+  .bars { position:absolute; bottom:9vh; left:0; right:0; height:34px; z-index:5; display:flex; align-items:flex-end; justify-content:center; gap:5px; opacity:0.5; }
+  .bar { width:3px; background:rgba(255,170,90,0.7); border-radius:2px; height:4px; }
+  .caption { position:fixed; bottom:14px; left:0; right:0; text-align:center; font-size:11px; letter-spacing:0.16em; color:rgba(243,231,214,0.4); z-index:30; }
+  @media (prefers-reduced-motion: reduce) { .cloud { animation:none !important; } }
+</style>
+</head>
+<body>
+<div class="panel" id="panel">
+  <div class="nebula" aria-hidden="true">
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+  </div>
+  <canvas class="constellation" id="constellation" aria-hidden="true"></canvas>
+  <div class="ringwrap" id="ringwrap"></div>
+  <div class="pulse" id="pulse"></div>
+  <div class="core" id="core"></div>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+
+  <div class="eyebrow">Music Collection</div>
+  <div class="bigname">Josh Ermert</div>
+  <div class="bars" id="bars"></div>
+  <div class="begin"><span>Begin Listening</span></div>
+</div>
+<div class="caption">Living glow + faint ripples — the direction. Breath = the music · rings = its echo · color drifts per song.</div>
+
+<script>
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function envAt(t){ return Math.max(0, 0.45 + 0.35*Math.sin(t*1.6) + 0.22*Math.sin(t*3.7+1) + 0.12*Math.sin(t*7.1)); }
+  var hues=[28,18,40,12];   // amber · rust · gold · deep — each song its own
+  var pulse=document.getElementById('pulse'), core=document.getElementById('core'),
+      bars=document.getElementById('bars'), wrap=document.getElementById('ringwrap');
+
+  var N=24, els=[];
+  for(var i=0;i<N;i++){ var b=document.createElement('div'); b.className='bar'; bars.appendChild(b); els.push(b); }
+
+  // CONSTELLATION — portfolio HeroCanvas motion (depth field, pointer + scroll parallax,
+  // drift, wrap) — warm + per-point flicker. No neighbour lines and no ping rings: the
+  // near "orb" points are filtered out, leaving only small flickering far stars.
+  (function(){
+    var cv=document.getElementById('constellation'); if(!cv) return;
+    var g=cv.getContext('2d'); if(!g) return;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=0,h=0,raf=0,tt=0;
+    var ptr={x:0,y:0}, par={x:0,y:0};
+    var pts=[]; var rand=function(a,b){return a+Math.random()*(b-a);};
+    function resize(){
+      var rect=cv.getBoundingClientRect();
+      w=rect.width; h=rect.height;
+      cv.width=Math.max(1,Math.floor(w*dpr)); cv.height=Math.max(1,Math.floor(h*dpr));
+      g.setTransform(dpr,0,0,dpr,0,0);
+      var count=Math.max(40,Math.min(120,Math.floor((w*h)/11000)));   // a touch fewer = smaller/subtler
+      pts=Array.from({length:count},function(){
+        var d=Math.pow(Math.random(),2.4);
+        var speed=0.03+d*0.16;
+        return { x:rand(0,w), y:rand(0,h), vx:rand(-speed,speed), vy:rand(-speed,speed),
+          d:d, r:0.4+d*1.7, a:0.1+d*0.7, tw:rand(0.6,2.0), ph:rand(0,6.283) };
+      });
+      pts=pts.filter(function(p){ return p.d<=0.66; });   // drop the near "orbs" that had rings → fewer, smaller stars
+      pts.sort(function(p1,p2){return p1.d-p2.d;});
+    }
+    function frame(){
+      tt+=0.016;
+      var ease=0.02;
+      par.x+=(ptr.x-par.x)*ease; par.y+=(ptr.y-par.y)*ease;
+      g.clearRect(0,0,w,h);
+      var n=pts.length, sx=new Array(n), sy=new Array(n);
+      var scroll= reduce ? 0 : window.scrollY;
+      var spanY=h+80;
+      for(var i=0;i<n;i++){
+        var p=pts[i];
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<-40)p.x=w+40; else if(p.x>w+40)p.x=-40;
+        if(p.y<-40)p.y=h+40; else if(p.y>h+40)p.y=-40;
+        var shift=2.7+p.d*13.3;
+        sx[i]=p.x+par.x*shift;
+        var yRaw=p.y+par.y*shift - scroll*(0.08+p.d*0.42);
+        sy[i]=(((yRaw+40)%spanY)+spanY)%spanY-40;
+      }
+      for(var i=0;i<n;i++){
+        var p=pts[i];
+        var tw=0.55+0.45*Math.sin(tt*p.tw+p.ph);   // FLICKER (the only behavioral add)
+        var aa=p.a*tw;
+        if(p.d>0.72){
+          g.fillStyle='rgba(255,150,80,'+((p.d-0.72)*0.16*tw)+')';
+          g.beginPath(); g.arc(sx[i],sy[i],p.r*3.4,0,Math.PI*2); g.fill();
+        }
+        g.fillStyle='rgba(255,200,150,'+aa+')';
+        g.beginPath(); g.arc(sx[i],sy[i],p.r,0,Math.PI*2); g.fill();
+      }
+      if(!reduce) raf=requestAnimationFrame(frame);
+    }
+    function onMove(e){ var rect=cv.getBoundingClientRect();
+      ptr.x=((e.clientX-rect.left)/rect.width-0.5)*2;
+      ptr.y=((e.clientY-rect.top)/rect.height-0.5)*2; }
+    function onLeave(){ ptr.x=0; ptr.y=0; }
+    resize();
+    window.addEventListener('resize',resize);
+    window.addEventListener('mousemove',onMove);
+    window.addEventListener('mouseout',onLeave);
+    if(reduce) frame(); else raf=requestAnimationFrame(frame);
+  })();
+
+  function spawnRing(hue){
+    var r=document.createElement('div'); r.className='ring';
+    r.style.borderColor='hsla('+hue+',92%,62%,0.0588)';
+    wrap.appendChild(r);
+    r.addEventListener('animationend', function(){ r.remove(); });
+  }
+
+  var t=0, prev=0, cooldown=0;
+  function loop(){
+    t+=0.016; var env=envAt(t); cooldown-=0.016;
+    var hue=hues[Math.floor(t/9)%hues.length];
+
+    // body — breathe
+    pulse.style.transform='scale('+(0.82+env*0.5)+')'; pulse.style.opacity=0.4+env*0.5;
+    pulse.style.background='radial-gradient(circle, hsla('+hue+',95%,60%,0.5) 0%, hsla('+(hue-8)+',90%,45%,0.16) 42%, transparent 68%)';
+    core.style.transform='scale('+(0.85+env*0.45)+')'; core.style.opacity=0.45+env*0.5;
+
+    // echo — faint sparse rings on swells
+    if(env>0.72 && env>prev && cooldown<=0){ spawnRing(hue); cooldown=1.7; }
+    prev=env;
+
+    // subtle meter
+    for(var i=0;i<N;i++){ var v=Math.max(0.04, env*Math.abs(Math.sin(t*2+i*0.5))); els[i].style.height=(4+v*26)+'px'; els[i].style.opacity=0.3+v*0.5; }
+
+    if(!reduce) requestAnimationFrame(loop);
+  }
+  if(reduce){ pulse.style.transform='scale(1.1)'; pulse.style.opacity=0.7; core.style.opacity=0.7; spawnRing(28); }
+  else loop();
+</script>
+</body>
+</html>
