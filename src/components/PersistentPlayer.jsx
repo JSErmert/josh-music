@@ -17,6 +17,7 @@ const styles = `
     z-index: 100;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 0 48px;
     gap: 32px;
     box-sizing: border-box;
@@ -26,14 +27,17 @@ const styles = `
   .player-track-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     min-width: 0;
     max-width: 260px;
     flex: 0 0 auto;
   }
 
   .player-progress-wrap {
-    flex: 1;
-    min-width: 0;
+    flex: 0 0 auto;
+    width: 300px;
+    max-width: 42vw;
     display: flex;
     flex-direction: column;
     gap: 5px;
