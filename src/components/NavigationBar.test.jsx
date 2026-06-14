@@ -8,16 +8,20 @@ describe('NavigationBar', () => {
     expect(screen.getByText(/josh ermert/i)).toBeInTheDocument()
   })
 
-  it('renders all four nav links with correct hrefs', () => {
+  it('renders exactly three nav links: Collection, About, Contact', () => {
     render(<NavigationBar />)
-    const archiveLink = screen.getByRole('link', { name: /archive/i })
-    const aboutLink   = screen.getByRole('link', { name: /about/i })
-    const liveLink    = screen.getByRole('link', { name: /live/i })
-    const contactLink = screen.getByRole('link', { name: /contact/i })
+    const collectionLink = screen.getByRole('link', { name: /collection/i })
+    const aboutLink      = screen.getByRole('link', { name: /about/i })
+    const contactLink    = screen.getByRole('link', { name: /contact/i })
 
-    expect(archiveLink).toHaveAttribute('href', '#archive')
+    expect(collectionLink).toHaveAttribute('href', '#collection')
     expect(aboutLink).toHaveAttribute('href', '#about')
-    expect(liveLink).toHaveAttribute('href', '#live')
     expect(contactLink).toHaveAttribute('href', '#contact')
+  })
+
+  it('does not render a Live or Archive link', () => {
+    render(<NavigationBar />)
+    expect(screen.queryByRole('link', { name: /live/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /archive/i })).not.toBeInTheDocument()
   })
 })

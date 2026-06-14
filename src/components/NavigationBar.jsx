@@ -1,9 +1,9 @@
-// NavigationBar — fixed top bar ported from B3 Archive Stage mockup.
-// Left: artist-name wordmark with "ARCHIVE" eyebrow.
-// Right: nav links anchoring to #archive / #about / #live / #contact.
-// Mobile (<= 768px): condensed padding, smaller link gap, eyebrow hidden.
+// NavigationBar — fixed top bar with warm-dark living-glow surface.
+// Left: "Josh Ermert" wordmark.
+// Right: three nav links anchoring to #collection / #about / #contact.
+// Mobile (<= 768px): condensed padding, smaller link gap.
 // At the very top the bar floats transparent; once scrolled it fades into a
-// dark chocolate-tinted frosted glass so content no longer bleeds through it.
+// warm glass surface so content no longer bleeds through it.
 
 import { useState, useEffect } from 'react'
 
@@ -24,10 +24,10 @@ const navStyles = `
                 border-color 0.4s ease, box-shadow 0.4s ease, padding 0.3s ease;
   }
   .nav-bar.scrolled {
-    background: rgba(28,16,8,0.74);
-    backdrop-filter: blur(22px) saturate(1.3);
-    -webkit-backdrop-filter: blur(22px) saturate(1.3);
-    border-bottom: 1px solid rgba(200,137,58,0.14);
+    background: rgba(20,12,7,0.55);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid rgba(255,236,214,0.12);
     box-shadow: 0 8px 30px rgba(0,0,0,0.45);
     padding-top: 20px;
     padding-bottom: 20px;
@@ -39,15 +39,6 @@ const navStyles = `
     margin: 0;
     padding: 0;
   }
-  .nav-eyebrow {
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(200,137,58,0.36);
-    font-weight: 300;
-    margin-left: 10px;
-    font-family: system-ui, Arial, sans-serif;
-  }
   @media (max-width: 768px) {
     .nav-bar {
       padding: 18px 20px;
@@ -58,9 +49,6 @@ const navStyles = `
     }
     .nav-links {
       gap: 18px;
-    }
-    .nav-eyebrow {
-      display: none;
     }
   }
 `
@@ -79,8 +67,8 @@ export default function NavigationBar() {
     <nav aria-label="Site navigation" className={scrolled ? 'nav-bar scrolled' : 'nav-bar'}>
       <style>{navStyles}</style>
 
-      {/* Left — wordmark + eyebrow */}
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 0 }}>
+      {/* Left — wordmark */}
+      <div style={{ display: 'flex', alignItems: 'baseline' }}>
         <span
           style={{
             fontFamily: "Georgia, 'Times New Roman', serif",
@@ -92,18 +80,14 @@ export default function NavigationBar() {
         >
           Josh Ermert
         </span>
-        <span className="nav-eyebrow">
-          Archive
-        </span>
       </div>
 
       {/* Right — nav links */}
       <ul className="nav-links">
         {[
-          { label: 'Archive', href: '#archive' },
-          { label: 'About',   href: '#about' },
-          { label: 'Live',    href: '#live' },
-          { label: 'Contact', href: '#contact' },
+          { label: 'Collection', href: '#collection' },
+          { label: 'About',      href: '#about' },
+          { label: 'Contact',    href: '#contact' },
         ].map(({ label, href }) => (
           <li key={label}>
             <a
