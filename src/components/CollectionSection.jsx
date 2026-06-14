@@ -1,11 +1,10 @@
-// CollectionSection — "The Collection" heading + 4-up vinyl-disc tile grid.
+// CollectionSection — "The Collection" heading + 4-up glass-card tile grid.
 // Maps tracks -> TrackTile. Clicking a tile calls onPlay(track.id).
-// Visual CSS ported from #library, .album-grid, .stage-note in the B3 mockup.
-// Uses useScrollReveal for section fade-in.
 // Mobile: 1-col; tablet: 2-col; desktop: 4-col.
 
 import { tracks } from '../data/tracks'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { hueForIndex } from '../design/tokens'
 import TrackTile from './TrackTile'
 
 const collectionStyles = `
@@ -18,8 +17,6 @@ const collectionStyles = `
   }
   @media (max-width: 768px) {
     .collection-section { padding: 64px 24px 72px; }
-    /* Tiles carry a ~14px layered wood-frame box-shadow on every side, so the
-       gap must clear 28px (both frames) for them to sit cleanly stacked. */
     .collection-grid { grid-template-columns: 1fr; gap: 30px; }
   }
   @media (min-width: 769px) and (max-width: 1024px) {
@@ -48,18 +45,6 @@ export default function CollectionSection({ onPlay, currentTrackId, isPlaying, o
           transition: 'opacity 0.65s ease, transform 0.65s ease',
         }}
       >
-        <p style={{
-          fontFamily: 'system-ui, Arial, sans-serif',
-          fontSize: '9px',
-          letterSpacing: '0.40em',
-          textTransform: 'uppercase',
-          color: 'rgba(200,137,58,0.50)',
-          fontWeight: 300,
-          textAlign: 'center',
-          marginBottom: '8px',
-        }}>
-          Archive
-        </p>
         <h2 style={{
           fontFamily: "Georgia, 'Times New Roman', serif",
           fontSize: '1.80rem',
@@ -90,7 +75,7 @@ export default function CollectionSection({ onPlay, currentTrackId, isPlaying, o
         }}
       >
         <div className="collection-grid">
-          {tracks.map((track) => (
+          {tracks.map((track, index) => (
             <TrackTile
               key={track.id}
               track={track}
@@ -98,22 +83,10 @@ export default function CollectionSection({ onPlay, currentTrackId, isPlaying, o
               currentTrackId={currentTrackId}
               isPlaying={isPlaying}
               onTogglePlay={onTogglePlay}
+              hue={hueForIndex(index)}
             />
           ))}
         </div>
-
-        {/* Stage note */}
-        <p style={{
-          textAlign: 'center',
-          marginTop: '38px',
-          fontFamily: "Georgia, 'Times New Roman', serif",
-          fontStyle: 'italic',
-          fontSize: '0.82rem',
-          color: 'rgba(138,122,104,0.35)',
-          letterSpacing: '0.06em',
-        }}>
-          Pressings, sessions, and live recordings. Offered as they were made.
-        </p>
       </div>
     </section>
   )
