@@ -2,12 +2,14 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import PersistentPlayer from './PersistentPlayer'
-const track = { title: 'TODO — Untitled Track 1', instrument: 'TBD', catalogId: 'TODO-001' }
+
+const track = { id: 'me-and-you', title: 'Me and You', kind: 'Original', duration: '—', src: '/audio/me-and-you.mp3' }
+
 describe('PersistentPlayer', () => {
   it('renders the current track and toggles', async () => {
     const onToggle = vi.fn()
     render(<PersistentPlayer track={track} isPlaying onTogglePlay={onToggle} onPrev={() => {}} onNext={() => {}} />)
-    expect(screen.getByText('TODO — Untitled Track 1')).toBeInTheDocument()
+    expect(screen.getByText('Me and You')).toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: /pause|play/i }))
     expect(onToggle).toHaveBeenCalledOnce()
   })
@@ -22,5 +24,9 @@ describe('PersistentPlayer', () => {
     expect(onPrev).toHaveBeenCalledOnce()
     await userEvent.click(screen.getByRole('button', { name: /next/i }))
     expect(onNext).toHaveBeenCalledOnce()
+  })
+  it('shows the track kind as meta text', () => {
+    render(<PersistentPlayer track={track} isPlaying={false} onTogglePlay={() => {}} onPrev={() => {}} onNext={() => {}} />)
+    expect(screen.getByText(/original/i)).toBeInTheDocument()
   })
 })

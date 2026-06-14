@@ -58,7 +58,7 @@ export default function ContactSection() {
           maxWidth: '280px',
           textAlign: 'center',
         }}>
-          For bookings, collaborations, and questions left on a sleeve.
+          For bookings, collaborations, and anything else.
         </p>
       </div>
     </section>

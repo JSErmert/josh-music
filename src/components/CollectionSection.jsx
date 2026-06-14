@@ -2,10 +2,12 @@
 // Maps tracks -> TrackTile. Clicking a tile calls onPlay(track.id).
 // Mobile: 1-col; tablet: 2-col; desktop: 4-col.
 
+import { useState } from 'react'
 import { tracks } from '../data/tracks'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { hueForIndex } from '../design/tokens'
 import TrackTile from './TrackTile'
+import LyricsOverlay from './LyricsOverlay'
 
 const collectionStyles = `
   .collection-section { padding: 96px 64px 100px; }
@@ -28,10 +30,11 @@ const collectionStyles = `
 export default function CollectionSection({ onPlay, currentTrackId, isPlaying, onTogglePlay }) {
   const { ref: headRef, visible: headVisible } = useScrollReveal()
   const { ref: gridRef, visible: gridVisible } = useScrollReveal()
+  const [lyricsTrack, setLyricsTrack] = useState(null)
 
   return (
     <section
-      id="library"
+      id="collection"
       className="collection-section"
     >
       <style>{collectionStyles}</style>
@@ -83,11 +86,14 @@ export default function CollectionSection({ onPlay, currentTrackId, isPlaying, o
               currentTrackId={currentTrackId}
               isPlaying={isPlaying}
               onTogglePlay={onTogglePlay}
+              onOpenLyrics={setLyricsTrack}
               hue={hueForIndex(index)}
             />
           ))}
         </div>
       </div>
+
+      <LyricsOverlay track={lyricsTrack} onClose={() => setLyricsTrack(null)} />
     </section>
   )
 }

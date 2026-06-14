@@ -29,7 +29,7 @@ const tileHoverStyles = `
   .track-tile-play  { transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease; }
 `
 
-export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, onTogglePlay, hue = 28 }) {
+export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, onTogglePlay, onOpenLyrics, hue = 28 }) {
   const isCurrentAndPlaying = track.id === currentTrackId && isPlaying
   const handleClick = () => {
     if (track.id === currentTrackId) {
@@ -106,7 +106,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           fontWeight: 300,
           marginBottom: '6px',
         }}>
-          {track.kind}
+          {track.kind === 'Cover' && track.credit ? `${track.kind} · ${track.credit}` : track.kind}
         </p>
         <h3
           className="track-tile-title"
@@ -161,6 +161,22 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           </svg>
         )}
       </div>
+
+      {onOpenLyrics && (
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); onOpenLyrics(track) }}
+          style={{
+            position: 'absolute', bottom: '20px', left: '20px', zIndex: 5,
+            background: 'none', border: 'none', padding: 0, cursor: 'pointer',
+            fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '10px',
+            letterSpacing: '0.16em', textTransform: 'uppercase',
+            color: `hsla(${hue},60%,70%,0.7)`,
+          }}
+        >
+          Lyrics
+        </button>
+      )}
     </div>
   )
 }
