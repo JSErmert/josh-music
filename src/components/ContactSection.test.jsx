@@ -5,7 +5,7 @@ import ContactSection from './ContactSection'
 describe('ContactSection', () => {
   it('renders the contact email', () => {
     render(<ContactSection />)
-    expect(screen.getByText(/add contact email/i)).toBeInTheDocument()
+    expect(screen.getByText('jseermert@gmail.com')).toBeInTheDocument()
   })
   it('renders the booking note', () => {
     render(<ContactSection />)

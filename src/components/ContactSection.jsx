@@ -30,9 +30,8 @@ export default function ContactSection() {
           Contact
         </p>
 
-        {/* TODO — Josh: replace with your real contact email (href + text below). */}
         <a
-          href="mailto:hello@example.com"
+          href="mailto:jseermert@gmail.com"
           style={{
             fontFamily: "Georgia, 'Times New Roman', serif",
             fontSize: '1.05rem',
@@ -46,7 +45,7 @@ export default function ContactSection() {
           onMouseEnter={(e) => { e.currentTarget.style.color = '#e8b060' }}
           onMouseLeave={(e) => { e.currentTarget.style.color = '#c8893a' }}
         >
-          TODO — add contact email
+          jseermert@gmail.com
         </a>
 
         <p style={{
