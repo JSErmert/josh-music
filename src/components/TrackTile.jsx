@@ -69,7 +69,27 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
         }}
       />
 
-      {/* Tile content */}
+      {/* Cover art — the title + Cover/Original are baked into the image */}
+      {track.art && (
+        <>
+          <img
+            src={track.art}
+            alt={`${track.title} — ${track.kind} cover art`}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 2 }}
+          />
+          <div
+            aria-hidden="true"
+            style={{ position: 'absolute', inset: 0, zIndex: 2, background: 'linear-gradient(to top, rgba(10,6,3,0.6), rgba(10,6,3,0) 45%)' }}
+          />
+          {/* Title kept in the DOM for screen readers (visually it lives in the art) */}
+          <h3 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap', border: 0 }}>
+            {track.title}
+          </h3>
+        </>
+      )}
+
+      {/* Tile content — only when there is no cover art */}
+      {!track.art && (
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -112,6 +132,7 @@ export default function TrackTile({ track, onPlay, currentTrackId, isPlaying, on
           {track.duration}
         </p>
       </div>
+      )}
 
       {/* Play/Pause ring — bottom-right */}
       <div

@@ -7,6 +7,7 @@ export const tracks = [
     credit: 'Palace',          // cover of "Son" by Palace
     duration: '—',
     src: '/audio/son.mp3',
+    art: '/art/son.webp',
     lyrics: null,              // Palace's lyrics are copyrighted — link out, do not embed
     lyricsUrl: 'https://genius.com/Palace-son-lyrics',
   },
@@ -17,6 +18,7 @@ export const tracks = [
     credit: null,
     duration: '—',
     src: '/audio/me-and-you.mp3',
+    art: '/art/me-and-you.webp',
     lyrics: `me and you
 what am i to do?
 so much love for you
